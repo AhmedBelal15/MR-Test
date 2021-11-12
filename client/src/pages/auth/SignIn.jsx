@@ -21,7 +21,7 @@ const SignIn = () => {
         toast.error(error.error)
     } else {
         localStorage.setItem("user", JSON.stringify(data))
-        history.push("/")
+        history.push("/table")
     }
 }
 
