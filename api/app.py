@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 from db import db, ma
 from UserModel import User, user_schema
 from utils.email_validator import check_email
-from utils.password import hash_password
+from utils.password import hash_password, compare_passwords
 
 #init app
 app = Flask(__name__)
@@ -16,8 +16,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 #Init ma
 ma.init_app(app)
-
-
 
 
 # Create a User
@@ -44,7 +42,53 @@ def add_user():
     response.pop("password")
     return user_schema.jsonify(response)
 
+# # Login User
+@app.route("/login", methods=["POST"])
+def get_product():
+    email = request.json.get("email")
+    password = request.json.get("password")
 
+    if not email or not password:
+        return Response('{"error": "Please make sure u included email and password"}', 400, mimetype='application/json')
+    if not check_email(email):
+        return Response('{"error": "Please make sure u inserted a valid email"}', 400, mimetype='application/json')
+
+    user = User.query.filter_by(email=email).first()
+
+    compared_passwords = compare_passwords(password, user.password)
+    if compared_passwords:
+        response = user_schema.jsonify(user).get_json()
+        response.pop("password")
+        return user_schema.jsonify(response)
+
+    return Response('{"error": "Either email or password is wrong!"}', 400, mimetype='application/json')
+
+# # Update a Product
+# @app.route("/product/<id>", methods=["PUT"])
+# def edit_product(id):
+#     product = Product.query.get(id)
+
+#     name = request.json["name"]
+#     description = request.json["description"]
+#     price = request.json["price"]
+#     qty = request.json["qty"]
+
+#     product.name = name
+#     product.description = description
+#     product.price = price
+#     product.qty = qty
+
+#     db.session.commit()
+
+#     return product_schema.jsonify(product)
+
+# # Delete Single Products
+# @app.route("/product/<id>", methods=["DELETE"])
+# def delete_product(id):
+#     product = Product.query.get(id)
+#     db.session.delete(product)
+#     db.session.commit()
+#     return product_schema.jsonify(product)
 
 #Run server
 if(__name__ == "__main__"):
