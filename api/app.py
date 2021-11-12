@@ -1,5 +1,6 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 import os
+import random
 from sqlalchemy.exc import IntegrityError
 from db import db, ma
 from flask_cors import CORS
@@ -65,8 +66,14 @@ def get_product():
 
     return Response('{"error": "Either email or password is wrong!"}', 400, mimetype='application/json')
 
-
+@app.route("/get-random", methods={"GET"})
+def get_random():
+    randomlist = []
+    for _ in range(0,5):
+        n = random.randint(1,2000)
+        randomlist.append(n)
+    return jsonify(randomlist)
 
 #Run server
 if(__name__ == "__main__"):
-    app.run(debug=True)
+    app.run()
