@@ -11,3 +11,43 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+body {
+  background: linear-gradient(
+    90deg,
+    rgba(65, 209, 233, 1) 0%,
+    rgba(65, 209, 233, 1) 30%,
+    rgba(130, 110, 227, 1) 70%
+  );
+}
+h1 {
+  color: hsl(0, 0%, 100%);
+  margin: 1rem;
+  text-shadow: 2px 2px hsl(0, 0%, 50%);
+}
+
+form {
+  background: white;
+  margin: 10rem auto;
+  width: 25rem;
+  min-height: 5rem;
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 4px 1px 14px -3px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 4px 1px 14px -3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 1px 14px -3px rgba(0, 0, 0, 0.75);
+}
+
+.auth-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.head-line {
+  font-size: 2rem;
+  font-weight: 600;
+}
