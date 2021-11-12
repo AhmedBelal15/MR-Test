@@ -2,12 +2,14 @@ from flask import Flask, request, Response
 import os
 from sqlalchemy.exc import IntegrityError
 from db import db, ma
+from flask_cors import CORS
 from UserModel import User, user_schema
 from utils.email_validator import check_email
 from utils.password import hash_password, compare_passwords
 
 #init app
 app = Flask(__name__)
+CORS(app)
 basedir = os.path.abspath(os.path.dirname(__file__))
 #Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')

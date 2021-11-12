@@ -9,6 +9,7 @@ flask-sqlalchemy = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 bcrypt = "*"
+flask-cors = "*"
 
 [dev-packages]
 autopep8 = "*"
